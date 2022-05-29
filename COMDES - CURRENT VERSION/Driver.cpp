@@ -9,7 +9,8 @@
 using namespace std;
 
 bool check_existence(string);
-int ExeExpression(Scanner);
+int ExeExpression(Scanner*);
+
 
 
 int main(){
@@ -83,7 +84,7 @@ int main(){
 					//convert
 					if(t == Scanner::DIGIT){
 						lex = scan.lexeme_string();
-						INT_VAL = lex[0] - '0';
+						INT_VAL = stoi(lex);
 						
 						
 					}else if(t == Scanner::STR){
@@ -132,7 +133,7 @@ int main(){
 					lex = scan.lexeme_string();
 					
 					if(check_existence(lex)){
-						int result = ExeExpression(scan);
+						int result = ExeExpression(&scan);
 						cout<<result<<endl;
 						
 						
@@ -159,9 +160,9 @@ int main(){
 	return 0;
 }
 	
+	
 //For keyword List
 bool check_existence(string lex){
-	//HANDLE h = GetStdHandle( STD_OUTPUT_HANDLE );
 		
 	KeywordList kw;
 	KeywordList::KW_CODES t;
@@ -171,35 +172,32 @@ bool check_existence(string lex){
 		
 	//display result
 	if (t == KeywordList::NOT_FOUND){
-		//SetConsoleTextAttribute(h, 4);
-		//cout <<lex<< " is not found..."<<endl;
 		return false;
 	}else{
-		//SetConsoleTextAttribute(h, 2);
-		//cout <<lex<< " is alright!"<<endl;
 		return true;
 	}
 }
 
 
-int ExeExpression(Scanner scan){
+int ExeExpression(Scanner *scan){
 	Scanner::TOKEN_CODE t;
 	string lex;
+	
+	
 	int leftOprand, rightOperand;
-	
-	
 	
 	Parser p;
 	
+	lex = scan->lexeme_string();
+	t = scan->next_token();
+	
+	
 	if(lex == "ADD" || lex == "SUB" || lex == "MUL" || lex == "DIV" || lex == "MOD"){
 		
-		lex = scan.lexeme_string();
-		t = scan.next_token();
-		
+	
 		leftOprand = ExeExpression(scan);
-		cout<<"Left: "<<leftOprand<<endl;
 		rightOperand = ExeExpression(scan);
-		cout<<"Right: "<<rightOperand<<endl;
+		
 		
 		if(lex == "ADD" ){
 			return leftOprand + rightOperand;
@@ -218,9 +216,7 @@ int ExeExpression(Scanner scan){
 	if(p.general_lookup(lex)){
 		return p.get_INT_hashval(lex);
 	}else{
-		//lex = scan.lexeme_string();
-		cout<<"Lex is: "<<lex<<endl;
-		return lex[0] - '0';
+		return stoi(lex);
 	}
 
 }
