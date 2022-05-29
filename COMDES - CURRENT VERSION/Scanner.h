@@ -128,8 +128,18 @@ void Scanner::get_word_token()
 void Scanner::get_digit_token()
 {
 	lexeme = cchar;
-	cchar = get_source_char();
+	for(;;){
+		cchar = get_source_char();
+		if(table.type(cchar) != CharMap::DIGIT){
+			break;
+		}
+		else{
+			lexeme+=cchar; //append chars
+		}
+	}
+
 	token=DIGIT;
+	
 }
 void Scanner::get_symbol_token()
 {
