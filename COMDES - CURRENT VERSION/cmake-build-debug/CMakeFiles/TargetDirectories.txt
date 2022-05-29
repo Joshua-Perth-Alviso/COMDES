@@ -1,0 +1,3 @@
+D:/Compiler Design project/COMDES - CURRENT VERSION/cmake-build-debug/CMakeFiles/COMDES___CURRENT_VERSION.dir
+D:/Compiler Design project/COMDES - CURRENT VERSION/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Compiler Design project/COMDES - CURRENT VERSION/cmake-build-debug/CMakeFiles/rebuild_cache.dir
